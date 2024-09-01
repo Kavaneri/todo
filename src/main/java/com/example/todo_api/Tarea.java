@@ -3,10 +3,14 @@ package com.example.todo_api;
 import java.sql.Date;
 import java.sql.Time;
 
+import com.example.todo_api.User.User;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,17 +27,22 @@ public class Tarea {
     private String descripcion;
     private int prioridad;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User usuario;
+
 
     public Tarea() {
     }
 
 
-    public Tarea( String titulo, Date fecha, Time hora, String descripcion, int prioridad) {
+    public Tarea( String titulo, Date fecha, Time hora, String descripcion, int prioridad, User usuario) {
         this.titulo = titulo;
         this.fecha = fecha;
         this.hora = hora;
         this.descripcion = descripcion;
         this.prioridad = prioridad;
+        this.usuario = usuario;
     }
 
 
@@ -85,5 +94,13 @@ public class Tarea {
         this.prioridad = prioridad;
     }
 
+
+    public User getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
     
 }
